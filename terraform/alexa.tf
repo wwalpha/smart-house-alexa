@@ -4,7 +4,7 @@
 // -----------------------------------------
 module "this" {
   providers = {
-    aws = "aws.global"
+    aws = "aws"
   }
   source = "github.com/wwalpha/terraform-modules-lambda"
 

@@ -15,10 +15,9 @@ terraform {
 // Provider
 // -----------------------------------------
 provider "aws" {
-  shared_credentials_file = "${var.shared_credentials_file}"
+  region                  = "us-west-2"
   profile                 = "${var.aws_profile}"
-  region                  = "us-east-1"
-  alias                   = "global"
+  shared_credentials_file = "${var.shared_credentials_file}"
 }
 
 // -----------------------------------------
