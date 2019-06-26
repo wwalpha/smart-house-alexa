@@ -31,8 +31,5 @@
     "webpack-cli": "latest",
     "webpack-merge": "latest"
   },
-  "dependencies": {
-    "ask-sdk": "^2.6.0",
-    "ask-sdk-model": "^1.17.0"
-  }
+  "dependencies": {}
 }

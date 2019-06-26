@@ -8,7 +8,6 @@ const ENTRY_NAME = 'index.ts';
 
 const getEntries = () => {
   const targets = sync(`${SRC_PATH}/**/${ENTRY_NAME}`);
-  // const targets = sync(`${SRC_PATH}/${ENTRY_NAME}`);
   const entries: { [key: string]: string } = {};
 
   targets.forEach(item => {
@@ -23,7 +22,7 @@ const getEntries = () => {
 
   return entries;
 };
-console.log(getEntries());
+
 const configs: Configuration = {
   target: 'node',
   entry: getEntries(),
