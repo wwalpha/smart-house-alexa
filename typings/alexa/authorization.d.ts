@@ -1,6 +1,6 @@
-import { AlexaRequest } from '.';
+import { AlexaRequest, AlexaRequestInfo } from '.';
 
-export interface AuthorizationRequest extends AlexaRequest {
+type AuthorizationRequestInfo = AlexaRequestInfo & {
   header: {
     namespace: 'Alexa.Authorization';
     name: 'AcceptGrant';
@@ -17,6 +17,26 @@ export interface AuthorizationRequest extends AlexaRequest {
       token: string;
     };
   };
+};
+
+export interface AuthorizationRequest {
+  directive: AuthorizationRequestInfo;
+  // header: {
+  //   namespace: 'Alexa.Authorization';
+  //   name: 'AcceptGrant';
+  //   messageId: string;
+  //   payloadVersion: '3';
+  // };
+  // payload: {
+  //   grant: {
+  //     type: string;
+  //     code: string;
+  //   };
+  //   grantee: {
+  //     type: string;
+  //     token: string;
+  //   };
+  // };
 }
 
 export interface AuthorizationResponse {

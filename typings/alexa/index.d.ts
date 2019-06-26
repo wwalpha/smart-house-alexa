@@ -1,22 +1,24 @@
-export interface AlexaRequest {
-  directive: {
-    header: {
-      namespace: string;
-      name: string;
-      messageId: string;
-      correlationToken?: string;
-      payloadVersion: '3';
-    };
-    endpoint?: {
-      scope: {
-        type: string;
-        token: string;
-      };
-      endpointId: string;
-      cookie: { [key: string]: string };
-    };
-    payload?: { [key: string]: string };
+export type AlexaRequestInfo = {
+  header: {
+    namespace: string;
+    name: string;
+    messageId: string;
+    correlationToken?: string;
+    payloadVersion: '3';
   };
+  endpoint?: {
+    scope: {
+      type: string;
+      token: string;
+    };
+    endpointId: string;
+    cookie: { [key: string]: string };
+  };
+  payload?: { [key: string]: string };
+};
+
+export interface AlexaRequest {
+  directive: AlexaRequestInfo;
 }
 
 export interface AlexaResponse {
@@ -35,7 +37,7 @@ export interface AlexaResponse {
       };
       endpointId: string;
     };
-    payload: {};
+    payload?: { [key: string]: string };
   };
 }
 

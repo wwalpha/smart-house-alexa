@@ -1,15 +1,17 @@
-import { AlexaResponse, AlexaRequest } from './index';
+import { AlexaResponse, AlexaRequest, AlexaRequestInfo } from './index';
 
-export interface PowerControllerRequest extends AlexaRequest {
-  directive: {
-    header: {
-      namespace: 'Alexa.PowerController';
-      name: 'TurnOn' | 'TurnOff';
-      messageId: string;
-      correlationToken: string;
-      payloadVersion: '3';
-    };
+type PowerControllerRequestInfo = AlexaRequestInfo & {
+  header: {
+    namespace: 'Alexa.PowerController';
+    name: 'TurnOn' | 'TurnOff';
+    messageId: string;
+    correlationToken: string;
+    payloadVersion: '3';
   };
+};
+
+export interface PowerControllerRequest {
+  directive: PowerControllerRequestInfo;
 }
 
 type PowerControllerProps = {
