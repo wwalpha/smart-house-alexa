@@ -8,20 +8,22 @@ const ENTRY_NAME = 'index.ts';
 
 const getEntries = () => {
   const targets = sync(`${SRC_PATH}/**/${ENTRY_NAME}`);
+  // const targets = sync(`${SRC_PATH}/${ENTRY_NAME}`);
   const entries: { [key: string]: string } = {};
 
   targets.forEach(item => {
     const key = item
       .replace(`${SRC_PATH}/`, '')
       .replace(/\//g, '_')
-      .replace(`_${ENTRY_NAME}`, '/index');
+      .replace(`_${ENTRY_NAME}`, '/index')
+      .replace('.ts', '');
 
     entries[key] = item;
   });
 
   return entries;
 };
-
+console.log(getEntries());
 const configs: Configuration = {
   target: 'node',
   entry: getEntries(),

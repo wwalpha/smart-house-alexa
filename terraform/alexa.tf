@@ -3,10 +3,13 @@
 // AWS Lambda Function
 // -----------------------------------------
 module "this" {
+  providers = {
+    aws = "aws.global"
+  }
   source = "github.com/wwalpha/terraform-modules-lambda"
 
-  filename         = "${data.archive_file.m001.output_path}"
-  source_code_hash = "${filebase64sha256("${data.archive_file.m001.output_path}")}"
+  filename         = "${data.archive_file.this.output_path}"
+  source_code_hash = "${filebase64sha256("${data.archive_file.this.output_path}")}"
 
   function_name      = "${local.project_name_uc}-Alexa"
   handler            = "index.handler"
@@ -14,7 +17,7 @@ module "this" {
   memory_size        = 256
   timeout            = 10
   trigger_principal  = "alexa-connectedhome.amazon.com"
-  trigger_source_arn = "${aws_cloudwatch_event_rule.m001.arn}"
+  trigger_source_arn = "${local.alexa_app_id}"
   # layers             = ["${local.xray}", "${local.moment}"]
 
   role_name = "${local.project_name_uc}-AlexaRole"
@@ -28,11 +31,10 @@ module "this" {
   # }
 }
 
-
 # ------------------------------
 # AWS Role Policy
 # ------------------------------
-data "aws_iam_policy_document" "m001_lambda" {
+data "aws_iam_policy_document" "this" {
   statement {
     actions = [
       "lambda:InvokeFunction",
@@ -49,8 +51,8 @@ data "aws_iam_policy_document" "m001_lambda" {
 // -----------------------------------------
 // Lambda Function Module
 // -----------------------------------------
-data "archive_file" "m001" {
+data "archive_file" "this" {
   type        = "zip"
-  source_file = "../build/m001/index.js"
-  output_path = "../build/m001/index.zip"
+  source_file = "../build/index.js"
+  output_path = "../build/index.zip"
 }
