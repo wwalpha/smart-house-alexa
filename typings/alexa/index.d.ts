@@ -43,8 +43,19 @@ export interface AlexaResponseEvent {
   payload?: AlexaPayload;
 }
 
+export interface AlexaResponseProps {
+  namespace: string;
+  name: string;
+  value: any;
+  timeOfSample: string;
+  uncertaintyInMilliseconds: number;
+}
+
 export interface AlexaResponse {
   event: AlexaResponseEvent;
+  context: {
+    properties: AlexaResponseProps[];
+  };
 }
 
 export { DiscoveryRequest, DiscoveryResponse, DiscoveryEndPoint } from './discover';
@@ -52,4 +63,5 @@ export { AuthorizationRequest, AuthorizationResponse } from './authorization';
 export { PowerControllerRequest, PowerControllerResponse } from './powerController';
 export { ChannelControllerRequest, ChannelControllerResponse } from './channelController';
 export { StepSpeakerRequest, StepSpeakerResponse } from './stepSpeaker';
-export { ReportStateRequest, ReportStateResponse } from './reportState';
+export { ReportStateRequest, ReportStateResponse, ReportStateResponseProps } from './reportState';
+export { BrightnessControllerRequest, BrightnessControllerResponse, BrightnessControllerResponseProps } from './brightnessController';

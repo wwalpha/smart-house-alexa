@@ -27,6 +27,7 @@ module "this" {
     IOT_ENDPOINT  = "${local.iot_endpoint}"
     IOT_REGION    = "${local.iot_region}"
     TABLE_DEVICES = "${local.dynamodb_devices_name}"
+    TABLE_STATUS  = "${local.dynamodb_status_name}"
   }
 }
 

@@ -7,10 +7,9 @@
     "start": "yarn build && yarn apply",
     "debug": "webpack -w --config configs/webpack.dev.ts",
     "build": "webpack --config configs/webpack.prod.ts",
-    "apply": "cd terraform && terraform apply -auto-approve"
+    "apply": "cd terraform && yarn start"
   },
   "devDependencies": {
-    "@types/aws-lambda": "latest",
     "@types/chai": "latest",
     "@types/jest": "latest",
     "@types/mocha": "latest",
@@ -31,5 +30,9 @@
     "webpack-cli": "latest",
     "webpack-merge": "latest"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/moment": "^2.13.0",
+    "aws-sdk": "latest",
+    "moment": "^2.24.0"
+  }
 }

@@ -1,6 +1,6 @@
 import { AlexaRequest } from '.';
 
-export interface DiscoveryRequest extends AlexaRequest {
+export interface DiscoveryRequest {
   directive: {
     header: {
       namespace: 'Alexa.Discovery';

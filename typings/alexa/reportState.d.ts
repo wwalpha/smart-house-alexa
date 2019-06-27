@@ -2,7 +2,7 @@ import { AlexaResponse, AlexaRequest, AlexaEndpoint, AlexaPayload } from './inde
 
 interface ReportStateHeader {
   namespace: 'Alexa';
-  name: 'ReportState';
+  name: 'StateReport';
   messageId: string;
   correlationToken: string;
   payloadVersion: '3';
@@ -18,7 +18,7 @@ export interface ReportStateRequest {
   directive: ReportStateRequestDirective;
 }
 
-interface ReportStateResponseProps {
+export interface ReportStateResponseProps {
   namespace: string;
   name: string;
   value: any;
@@ -29,12 +29,12 @@ interface ReportStateResponseProps {
 interface ReportStateResponseEvent {
   header: ReportStateHeader;
   endpoint: AlexaEndpoint;
-  context: {
-    properties: ReportStateResponseProps[];
-  };
   payload?: AlexaPayload;
 }
 
 export interface ReportStateResponse {
   event: ReportStateResponseEvent;
+  context: {
+    properties: ReportStateResponseProps[];
+  };
 }

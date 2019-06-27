@@ -17,6 +17,8 @@ locals {
   # Dynamodb
   # -----------------------------------------------
   dynamodb_devices_name = "${local.remote_init.dynamodb_devices_name}"
+  dynamodb_status_name  = "${local.remote_init.dynamodb_status_name}"
+
 }
 
 data "aws_caller_identity" "current" {}
