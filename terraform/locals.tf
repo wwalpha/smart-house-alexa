@@ -12,6 +12,11 @@ locals {
   iot_region      = "${local.remote_init.region}"
 
   account_id = "${data.aws_caller_identity.current.account_id}"
+
+  # -----------------------------------------------
+  # Dynamodb
+  # -----------------------------------------------
+  dynamodb_devices_name = "${local.remote_init.dynamodb_devices_name}"
 }
 
 data "aws_caller_identity" "current" {}
