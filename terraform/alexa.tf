@@ -3,15 +3,12 @@
 // AWS Lambda Function
 // -----------------------------------------
 module "this" {
-  providers = {
-    aws = "aws"
-  }
   source = "github.com/wwalpha/terraform-modules-lambda"
 
   filename         = "${data.archive_file.this.output_path}"
   source_code_hash = "${filebase64sha256("${data.archive_file.this.output_path}")}"
 
-  function_name      = "${local.project_name_uc}-Alexa"
+  function_name      = "${local.project_name_uc}-Alexa1"
   handler            = "index.handler"
   runtime            = "nodejs10.x"
   memory_size        = 256
@@ -22,28 +19,55 @@ module "this" {
 
   role_name = "${local.project_name_uc}-AlexaRole"
   role_policy_json = [
-    "${data.aws_iam_policy_document.this.json}",
+    "${data.aws_iam_policy_document.iot.json}",
+    "${data.aws_iam_policy_document.dynamodb.json}",
   ]
 
-  # variables = {
-  #   CALL_SLACK_FUNCTION = "PocketCards-M003"
-  #   GROUPNAME_PREFIX    = "/aws/lambda/PocketCards"
-  # }
+  variables = {
+    IOT_ENDPOINT = "${local.iot_endpoint}"
+    IOT_REGION   = "${local.iot_region}"
+  }
 }
 
 # ------------------------------
 # AWS Role Policy
 # ------------------------------
-data "aws_iam_policy_document" "this" {
+data "aws_iam_policy_document" "iot" {
   statement {
     actions = [
-      "lambda:InvokeFunction",
+      "iot:Publish",
     ]
 
     effect = "Allow"
 
     resources = [
       "*",
+    ]
+  }
+}
+
+
+# -----------------------------------------------
+# DynamoDB Access Policy
+# -----------------------------------------------
+data "aws_iam_policy_document" "dynamodb" {
+  statement {
+    actions = [
+      "dynamodb:BatchGetItem",
+      "dynamodb:BatchWriteItem",
+      "dynamodb:PutItem",
+      "dynamodb:DeleteItem",
+      "dynamodb:GetItem",
+      "dynamodb:Scan",
+      "dynamodb:Query",
+      "dynamodb:UpdateItem",
+    ]
+
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:dynamodb:${local.region}:*:table/*/index/*",
+      "arn:aws:dynamodb:${local.region}:*:table/*",
     ]
   }
 }

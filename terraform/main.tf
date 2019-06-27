@@ -15,7 +15,9 @@ terraform {
 // Provider
 // -----------------------------------------
 provider "aws" {
-  region                  = "us-west-2"
+  # region = "us-east-1"
+  # region                  = "us-west-2"
+  region                  = "${var.region}"
   profile                 = "${var.aws_profile}"
   shared_credentials_file = "${var.shared_credentials_file}"
 }
