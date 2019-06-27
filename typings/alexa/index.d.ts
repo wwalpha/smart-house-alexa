@@ -70,6 +70,8 @@ type CommonEvent = {
   };
 };
 
-export { DiscoveryRequest, DiscoveryResponse } from './discover';
+export { DiscoveryRequest, DiscoveryResponse, DiscoveryEndPoint } from './discover';
 export { AuthorizationRequest, AuthorizationResponse } from './authorization';
 export { PowerControllerRequest, PowerControllerResponse } from './powerController';
+export { ChannelControllerRequest, ChannelControllerResponse } from './channelController';
+export { StepSpeakerRequest, StepSpeakerResponse } from './stepSpeaker';

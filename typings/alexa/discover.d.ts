@@ -17,7 +17,7 @@ export interface DiscoveryResponse {
       namespace: 'Alexa.Discovery';
       name: 'Discover.Response';
       messageId: string;
-      payloadVersion: '2' | '3';
+      payloadVersion: '3';
     };
     payload: {
       endpoints: DiscoveryEndPoint[];
@@ -100,7 +100,7 @@ type AdditionalAttribute = {
   customIdentifier?: string;
 };
 
-type DiscoveryEndPoint = {
+export type DiscoveryEndPoint = {
   endpointId: string;
   manufacturerName: string;
   description: string;
