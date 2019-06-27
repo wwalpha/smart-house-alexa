@@ -1,6 +1,6 @@
 import { AuthorizationRequest, AuthorizationResponse } from 'typings/alexa';
 
-export default ({ directive: { header, payload } }: AuthorizationRequest): AuthorizationResponse => {
+export default ({ directive: { header } }: AuthorizationRequest): AuthorizationResponse => {
   return {
     event: {
       header: {
@@ -9,7 +9,6 @@ export default ({ directive: { header, payload } }: AuthorizationRequest): Autho
         messageId: header.messageId,
         payloadVersion: header.payloadVersion,
       },
-      payload,
     },
   };
 };
