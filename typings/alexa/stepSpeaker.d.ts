@@ -1,24 +1,29 @@
-import { AlexaResponse, AlexaRequest, AlexaRequestInfo } from './index';
+import { AlexaResponse, AlexaRequest, AlexaEndpoint, AlexaPayload, AlexaResponseEvent } from './index';
 
-type StepSpeakerRequestInfo = AlexaRequestInfo & {
-  header: {
-    namespace: 'Alexa.StepSpeaker';
-    name: 'AdjustVolume' | 'SetMute';
-    messageId: string;
-    correlationToken: string;
-    payloadVersion: '3';
-  };
-  payload: {
-    volumeSteps?: number;
-    mute?: boolean;
-  };
-};
-
-export interface StepSpeakerRequest {
-  directive: StepSpeakerRequestInfo;
+interface StepSpeakerRequestHeader {
+  namespace: 'Alexa.StepSpeaker';
+  name: 'AdjustVolume' | 'SetMute';
+  messageId: string;
+  correlationToken: string;
+  payloadVersion: '3';
+}
+interface StepSpeakerRequestPayload {
+  volumeSteps?: number;
+  mute?: boolean;
 }
 
-export interface StepSpeakerResponse extends AlexaResponse {
+interface StepSpeakerRequestDirective {
+  header: StepSpeakerRequestHeader;
+  endpoint: AlexaEndpoint;
+  payload: StepSpeakerRequestPayload;
+}
+
+export interface StepSpeakerRequest {
+  directive: StepSpeakerRequestDirective;
+}
+
+export interface StepSpeakerResponse {
+  event: AlexaResponseEvent;
   context: {
     properties: [];
   };

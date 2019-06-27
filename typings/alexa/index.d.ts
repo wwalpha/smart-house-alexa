@@ -1,77 +1,55 @@
-export type AlexaRequestInfo = {
-  header: {
-    namespace: string;
-    name: string;
-    messageId: string;
-    correlationToken?: string;
-    payloadVersion: '3';
+export interface AlexaEndpoint {
+  scope?: {
+    type: string;
+    token: string;
   };
-  endpoint?: {
-    scope: {
-      type: string;
-      token: string;
-    };
-    endpointId: string;
-    cookie: { [key: string]: string };
-  };
-  payload?: { [key: string]: string };
+  endpointId: string;
+  cookie?: { [key: string]: string };
+}
+
+export interface AlexaPayload {
+  [key: string]: string;
+}
+
+export interface AlexaRequestHeader {
+  namespace: string;
+  name: string;
+  messageId: string;
+  correlationToken?: string;
+  payloadVersion: '3';
+}
+
+export type AlexaRequestDirective = {
+  header: AlexaRequestHeader;
+  endpoint?: AlexaEndpoint;
+  payload?: AlexaPayload;
 };
 
 export interface AlexaRequest {
-  directive: AlexaRequestInfo;
+  directive: AlexaRequestDirective;
+}
+
+interface AlexaResponseHeader {
+  namespace: 'Alexa';
+  name: 'Response';
+  messageId: string;
+  correlationToken?: string;
+  payloadVersion: '3';
+}
+
+export interface AlexaResponseEvent {
+  header: AlexaResponseHeader;
+  endpoint?: AlexaEndpoint;
+  payload?: AlexaPayload;
 }
 
 export interface AlexaResponse {
-  event: {
-    header: {
-      namespace: 'Alexa';
-      name: 'Response';
-      messageId: string;
-      correlationToken?: string;
-      payloadVersion: '3';
-    };
-    endpoint?: {
-      scope: {
-        type: string;
-        token: string;
-      };
-      endpointId: string;
-    };
-    payload?: { [key: string]: string };
-  };
+  event: AlexaResponseEvent;
 }
-
-export interface AlexaStateReport {
-  event: {
-    header: {
-      namespace: 'Alexa';
-      name: 'StateReport';
-      messageId: string;
-      correlationToken: string;
-      payloadVersion: '3';
-    };
-    endpoint?: {
-      scope: {
-        type: 'BearerToken';
-        token: string;
-      };
-      endpointId: string;
-    };
-    payload: {};
-  };
-}
-
-type CommonEvent = {
-  header: {
-    namespace: string;
-    name: string;
-    messageId: string;
-    payloadVersion: '3';
-  };
-};
 
 export { DiscoveryRequest, DiscoveryResponse, DiscoveryEndPoint } from './discover';
 export { AuthorizationRequest, AuthorizationResponse } from './authorization';
 export { PowerControllerRequest, PowerControllerResponse } from './powerController';
 export { ChannelControllerRequest, ChannelControllerResponse } from './channelController';
 export { StepSpeakerRequest, StepSpeakerResponse } from './stepSpeaker';
+export { ReportStateRequest, ReportStateResponse } from './reportState';

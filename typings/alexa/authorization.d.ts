@@ -1,52 +1,43 @@
-import { AlexaRequest, AlexaRequestInfo } from '.';
+import { AlexaResponse, AlexaRequest, AlexaEndpoint, AlexaPayload, AlexaResponseEvent } from './index';
 
-type AuthorizationRequestInfo = AlexaRequestInfo & {
-  header: {
-    namespace: 'Alexa.Authorization';
-    name: 'AcceptGrant';
-    messageId: string;
-    payloadVersion: '3';
+interface AuthorizationRequestHeader {
+  namespace: 'Alexa.Authorization';
+  name: 'AcceptGrant';
+  messageId: string;
+  payloadVersion: '3';
+}
+interface AuthorizationRequestPayload {
+  grant: {
+    type: string;
+    code: string;
   };
-  payload: {
-    grant: {
-      type: string;
-      code: string;
-    };
-    grantee: {
-      type: string;
-      token: string;
-    };
+  grantee: {
+    type: string;
+    token: string;
   };
-};
+}
+
+interface AuthorizationRequestDirective {
+  header: AuthorizationRequestHeader;
+  payload: AuthorizationRequestPayload;
+}
 
 export interface AuthorizationRequest {
-  directive: AuthorizationRequestInfo;
-  // header: {
-  //   namespace: 'Alexa.Authorization';
-  //   name: 'AcceptGrant';
-  //   messageId: string;
-  //   payloadVersion: '3';
-  // };
-  // payload: {
-  //   grant: {
-  //     type: string;
-  //     code: string;
-  //   };
-  //   grantee: {
-  //     type: string;
-  //     token: string;
-  //   };
-  // };
+  directive: AuthorizationRequestDirective;
+}
+
+interface AuthorizationResponseHeader {
+  namespace: 'Alexa.Authorization';
+  name: 'AcceptGrant.Response';
+  messageId: string;
+  payloadVersion: '3';
+}
+
+interface AuthorizationResponseEvent {
+  header: AuthorizationResponseHeader;
+  payload?: AlexaPayload;
 }
 
 export interface AuthorizationResponse {
-  event: {
-    header: {
-      namespace: 'Alexa.Authorization';
-      name: 'AcceptGrant.Response';
-      messageId: string;
-      payloadVersion: '2' | '3';
-    };
-    payload: {};
-  };
+  event: AuthorizationResponseEvent;
 }
