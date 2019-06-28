@@ -37,6 +37,7 @@ const adjustVolume = async (value?: number) => {
     endpoint: IOT_ENDPOINT,
   });
 
+  console.log('adjustVolume', value);
   await client
     .publish({
       topic: 'iot/stepspeaker/volume',
